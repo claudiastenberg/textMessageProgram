@@ -15,9 +15,9 @@ import java.util.Optional;
 public final  class UserService {
 
     final String ACCOUNT_SID =
-            "ACa9e800edc1e2d4b20b6ac00aba3be72b";
+
     final String AUTH_TOKEN =
-            "5b22e55ae27b548c31261c469807377a";
+
 
     private final UserRepository repository;
 
@@ -36,8 +36,7 @@ public final  class UserService {
         // Find your Account Sid and Auth Token at twilio.com/console
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message
-                .creator(new PhoneNumber("+46769424727"), // to
-                        new PhoneNumber("+46769446997"), // from
+
                         "Din patient " + optionalUser.get().getFirstName() + " har kommit")
                 .create();
             return optionalUser.get();
