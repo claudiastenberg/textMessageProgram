@@ -1,29 +1,29 @@
 package se.claudiastenberg.smsprogram.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Appoinment {
 
     @Id
-    @GeneratedValue
+   @GeneratedValue
     private Long id;
+
+    @Column(nullable = false)
     private String cause;
 
-    @OneToMany(mappedBy = "appoinment")
-    private Collection<User> user;
+    @ManyToOne
+    @JsonBackReference
+    private User user;
 
     protected Appoinment() { }
 
-    public Appoinment(String cause, Collection<User> user) {
+    public Appoinment(String cause, User user) {
         this.cause = cause;
         this.user = user;
     }
-
-    public Appoinment(Long id, Collection<User> user, String cause) {
-    }
-
     public Long getId() {
         return id;
     }
@@ -40,20 +40,11 @@ public class Appoinment {
         this.cause = cause;
     }
 
-    public Collection<User> getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Collection<User> user) {
+    public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Appoinment{" +
-                "id=" + id +
-                ", cause='" + cause + '\'' +
-                ", user=" + user +
-                '}';
     }
 }

@@ -9,12 +9,7 @@ import javax.annotation.Resource;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-import java.net.URI;
-import java.util.concurrent.atomic.AtomicLong;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.CREATED;
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.OK;
 
 @Resource
@@ -24,8 +19,7 @@ import static javax.ws.rs.core.Response.Status.OK;
 @Consumes(APPLICATION_JSON)
 public class UserResource {
 
-    private final UserService service; //Denna hjälper att spara i SQsL
-    private static final AtomicLong ids = new AtomicLong(1000);
+    private final UserService service;
 
     public UserResource(UserService service) {
         this.service = service;
@@ -37,12 +31,12 @@ public class UserResource {
         return Response.ok().build();
     }
 
-    // READ
     @GET
     @Path("{personald}")
-    public Response getUser(@PathParam("personald") int personald) {
+    public Response getUser(@PathParam("personald") int personald) throws NoSuchFieldException{
         return Response.ok(service.getUsers(personald)).build();
     }
+
     @GET
     public Iterable<User> getAll(){
         return service.getAllUsers();

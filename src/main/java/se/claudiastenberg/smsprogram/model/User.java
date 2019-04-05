@@ -1,7 +1,10 @@
 package se.claudiastenberg.smsprogram.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -13,12 +16,13 @@ public class User {
     private String lastName;
     private int personald;
 
-    @ManyToOne
-    private Appoinment appoinment;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Collection<Appoinment> appoinment;
 
     protected User() { }
 
-    public User(String firstName, String lastName, int personald, Appoinment appoinment) {
+    public User(String firstName, String lastName, int personald, Collection <Appoinment> appoinment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personald = personald;
@@ -57,20 +61,11 @@ public class User {
         this.id = id;
     }
 
-    public Appoinment getAppoinment() {
+    public Collection <Appoinment>  getAppoinment() {
         return appoinment;
     }
 
-    public void setAppoinment(Appoinment appoinment) {
+    public void setAppoinment(Collection <Appoinment>  appoinment) {
         this.appoinment = appoinment;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", appoinment=" + appoinment +
-                '}';
     }
 }
