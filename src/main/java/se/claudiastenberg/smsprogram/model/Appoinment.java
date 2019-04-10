@@ -14,15 +14,19 @@ public class Appoinment {
     @Column(nullable = false)
     private String cause;
 
+    @Column(nullable = false)
+    private String date;
+
     @ManyToOne
     @JsonBackReference
     private User user;
 
     protected Appoinment() { }
 
-    public Appoinment(String cause, User user) {
+    public Appoinment(String cause, User user, String date) {
         this.cause = cause;
         this.user = user;
+        this.date=date;
     }
     public Long getId() {
         return id;
@@ -46,5 +50,13 @@ public class Appoinment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

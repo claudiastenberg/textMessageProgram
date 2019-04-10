@@ -28,5 +28,12 @@ public final class AppoinmentService {
     public void deleteAppoinment(Long id){
         appoinmentRepository.deleteById(id);
     }
+    public Appoinment updateAppoinment(Long id, Appoinment appoinment){
+       Appoinment foundAppoinment = appoinmentRepository.findById(id).get();
+       foundAppoinment.setUser(appoinment.getUser());
+       foundAppoinment.setCause(appoinment.getCause());
+       foundAppoinment.setDate(appoinment.getDate());
+       return appoinmentRepository.save(foundAppoinment);
+    }
 
 }

@@ -16,6 +16,9 @@ public class User {
     private String lastName;
     private int personald;
 
+    // @ManyToOne
+   // private Appoinment appoinment;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @JsonManagedReference
     private Collection<Appoinment> appoinment;
@@ -68,4 +71,5 @@ public class User {
     public void setAppoinment(Collection <Appoinment>  appoinment) {
         this.appoinment = appoinment;
     }
+
 }

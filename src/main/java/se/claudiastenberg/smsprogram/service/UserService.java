@@ -15,9 +15,7 @@ import java.util.Optional;
 public final  class UserService {
 
     final String ACCOUNT_SID =
-            "ACCOUNT_SID that I will found on my Twilio profile";
     final String AUTH_TOKEN =
-            "AUTH_TOKEN that I will found on my Twilio profile";
 
     private final UserRepository repository;
 
@@ -34,11 +32,8 @@ public final  class UserService {
         Optional<User> optionalUser = repository.findByPersonald(findByPersonald);
 
         if (optionalUser.isPresent()){
-        // Find your Account Sid and Auth Token at twilio.com/console
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message
-                .creator(new PhoneNumber("My Phone number"), // to My Phone
-                        new PhoneNumber("My Twilio phone number"), // from My Twilio
                         "Din patient " + optionalUser.get().getFirstName() + " har kommit för att få hjälp med: " +
                                 optionalUser.get().getAppoinment().iterator().next().getCause())
                 .create();
@@ -47,17 +42,16 @@ public final  class UserService {
         throw new NotFoundException();
     }
 
-    public void deleteUser(Long id){
-        repository.deleteById(id);
-    }
     public Iterable<User> getAllUsers(){
 
         return repository.findAll();
     }
 
-    public User bookAppoinment(int personalID, User user){
-        User foundUser = repository.findByPersonald(personalID).get();
-        foundUser.setAppoinment(user.getAppoinment());
+    public User bookAppoinment(Long personalID, User user){
+        User foundUser = repository.findById(personalID).get();
+        foundUser.setFirstName(user.getFirstName());
+        foundUser.setLastName(user.getLastName());
+        foundUser.setPersonald(user.getPersonald());
         return repository.save(foundUser);
     }
 }

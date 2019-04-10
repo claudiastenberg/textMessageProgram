@@ -10,7 +10,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.OK;
 
 @Resource
 @Path("users")
@@ -33,7 +32,7 @@ public class UserResource {
 
     @GET
     @Path("{personald}")
-    public Response getUser(@PathParam("personald") int personald) throws NoSuchFieldException{
+    public Response getUser(@PathParam("personald") int personald){
         return Response.ok(service.getUsers(personald)).build();
     }
 
@@ -44,17 +43,9 @@ public class UserResource {
 
     @PUT
     @Path("{personalID}")
-    public Response updateUser(@PathParam("personalID") int personalID, User user) {
+    public Response updateUser(@PathParam("personalID") Long personalID, User user) {
         service.bookAppoinment(personalID, user);
         return Response.noContent().build();
-    }
-
-    //DELETE
-    @DELETE
-    @Path("{id}")
-    public Response deleteUser(@PathParam("id") Long id) {
-        service.deleteUser(id);
-        return Response.status(OK).build();
     }
 
 }

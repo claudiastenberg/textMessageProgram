@@ -42,6 +42,13 @@ public class AppoinmentResource {
         return appoinmentService.getallAppoinments();
     }
 
+    @PUT
+    @Path("{id}")
+    public Response updateAppoinment(@PathParam("id") Long id, Appoinment appoinment){
+        appoinmentService.updateAppoinment(id, appoinment);
+        return Response.ok(OK).build();
+    }
+
     @DELETE
     @Path("{id}")
     public Response deleteAppoinment(@PathParam("id") Long id) {
