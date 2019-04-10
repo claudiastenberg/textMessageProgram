@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.OK;
 
 @Resource
 @Path("users")
@@ -45,7 +46,7 @@ public class UserResource {
     @Path("{personalID}")
     public Response updateUser(@PathParam("personalID") Long personalID, User user) {
         service.bookAppoinment(personalID, user);
-        return Response.noContent().build();
+        return Response.status(OK).build();
     }
 
 }
